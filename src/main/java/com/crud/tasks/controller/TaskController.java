@@ -1,4 +1,4 @@
-package com.crud.tasks.domain.controller;
+package com.crud.tasks.controller;
 
 import com.crud.tasks.domain.TaskDto;
 import org.springframework.web.bind.annotation.*;
