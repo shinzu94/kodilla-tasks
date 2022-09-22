@@ -4,6 +4,7 @@ import com.crud.tasks.domain.TaskDto;
 import com.crud.tasks.mapper.TaskMapper;
 import com.crud.tasks.service.DbService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +23,11 @@ public class TaskController {
     }
 
     @GetMapping("/{taskId}")
-    public TaskDto getTask(@PathVariable Long taskId) {
-        return new TaskDto(taskId, "test", "test");
+    public ResponseEntity<TaskDto> getTask(@PathVariable Long taskId) {
+        return service.getTask(taskId)
+                .map(taskMapper::mapToTaskDto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
 
