@@ -31,10 +31,9 @@ public class TaskController {
         );
     }
 
-
     @DeleteMapping("/{taskId}")
-    public void deleteTask(@PathVariable Long taskId) {
-
+    public void deleteTask(@PathVariable Long taskId) throws TaskNotFoundException {
+        service.deleteTask(taskId);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
