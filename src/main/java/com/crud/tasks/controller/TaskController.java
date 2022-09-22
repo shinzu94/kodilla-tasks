@@ -1,9 +1,11 @@
 package com.crud.tasks.controller;
 
+import com.crud.tasks.domain.Task;
 import com.crud.tasks.domain.TaskDto;
 import com.crud.tasks.mapper.TaskMapper;
 import com.crud.tasks.service.DbService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,11 +25,10 @@ public class TaskController {
     }
 
     @GetMapping("/{taskId}")
-    public ResponseEntity<TaskDto> getTask(@PathVariable Long taskId) {
-        return service.getTask(taskId)
-                .map(taskMapper::mapToTaskDto)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<TaskDto> getTask(@PathVariable Long taskId) throws TaskNotFoundException {
+        return ResponseEntity.ok(
+                taskMapper.mapToTaskDto(service.getTask(taskId))
+        );
     }
 
 
@@ -36,13 +37,15 @@ public class TaskController {
 
     }
 
-    @PutMapping
-    public TaskDto updateTask(TaskDto taskDto) {
-        return new TaskDto(1L, "Edited test title", "Test content");
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TaskDto> updateTask(@RequestBody TaskDto taskDto) throws TaskNotFoundException {
+        Task task = taskMapper.mapToTask(taskDto);
+        Task savedTask = service.updateTask(task);
+        return ResponseEntity.ok(taskMapper.mapToTaskDto(savedTask));
     }
 
-    @PostMapping
-    public void createTask(TaskDto taskDto) {
-
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void createTask(@RequestBody TaskDto taskDto) {
+        service.saveTask(taskMapper.mapToTask(taskDto));
     }
 }
