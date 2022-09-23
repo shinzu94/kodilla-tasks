@@ -1,0 +1,11 @@
+spring:
+  jpa:
+    database: postgresql
+  datasource:
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+
+application:
+  frontend:
+    url: https://shinzu94.github.io
