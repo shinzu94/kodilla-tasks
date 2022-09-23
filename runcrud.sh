@@ -33,10 +33,12 @@ copy_file() {
 
 fail() {
    echo "There were errors"
+   exit 1;
 }
 
 end() {
    echo "Work is finished"
+   exit 0
 }
 
 if ./gradlew build; then
