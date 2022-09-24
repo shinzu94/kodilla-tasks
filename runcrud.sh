@@ -4,17 +4,19 @@ export CATALINA_HOME=~/tomcat
 
 stop_tomcat()
 {
-   docker stop homebudget_tomcat_1
+   docker stop tasks_crud_1
 }
 
 start_tomcat()
 {
-   docker start homebudget_tomcat_1
+   docker start tasks_crud_1
    end;
 }
 
 rename() {
-   rm build/libs/crud.war
+   if [ -f "build/libs/crud.war" ]; then
+      rm build/libs/crud.war
+   fi
    if mv build/libs/tasks-0.0.1-SNAPSHOT.war build/libs/crud.war; then
       echo "Successfully renamed file"
    else
