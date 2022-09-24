@@ -22,19 +22,19 @@ services:
     command: --max-allowed-packet=134217728
     environment:
       MYSQL_ROOT_PASSWORD: root
-  crud:
-    image: tomcat:9.0.65-jdk17-temurin-jammy
-    hostname: crud
-    networks:
-      - task_net
-    ports:
-      - '127.0.0.1:8080:8080'
-    depends_on:
-      - db
-      - app
-    volumes:
-      - ~/tomcat/conf:/usr/local/tomcat/conf
-      - ~/tomcat/webapps:/usr/local/tomcat/webapps
+  #  crud:
+  #    image: tomcat:9.0.65-jdk17-temurin-jammy
+  #    hostname: crud
+  #    networks:
+  #      - task_net
+  #    ports:
+  #      - '127.0.0.1:8080:8080'
+  #    depends_on:
+  #      - db
+  #      - app
+  #    volumes:
+  #      - ~/tomcat/conf:/usr/local/tomcat/conf
+  #      - ~/tomcat/webapps:/usr/local/tomcat/webapps
   app:
     image: nginx
     hostname: app
