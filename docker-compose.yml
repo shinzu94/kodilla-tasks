@@ -7,7 +7,6 @@ networks:
       driver: default
       config:
         - subnet: '10.101.0.0/16'
-
 services:
   db:
     image: mysql
@@ -18,13 +17,14 @@ services:
       - task_net
     ports:
       - '127.0.0.1:3306:3306'
-    restart: unless-stopped
+    restart: "no"
     command: --max-allowed-packet=134217728
     environment:
       MYSQL_ROOT_PASSWORD: root
   #  crud:
   #    image: tomcat:9.0.65-jdk17-temurin-jammy
   #    hostname: crud
+  #    restart: no
   #    networks:
   #      - task_net
   #    ports:
@@ -38,6 +38,7 @@ services:
   app:
     image: nginx
     hostname: app
+    restart: "no"
     volumes:
       - ~/tasks-frontend:/usr/share/nginx/html/
     environment:
