@@ -1,17 +1,19 @@
 package com.crud.tasks.mapper;
 
 import com.crud.tasks.domain.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class TrelloMapper {
 
     public TrelloBoard mapToBoard(final TrelloBoardDto trelloBoardDto) {
         return TrelloBoard.builder()
                 .id(trelloBoardDto.getId())
                 .name(trelloBoardDto.getName())
-                .lists(mapToList(trelloBoardDto.getLists()))
+                .lists(mapToLists(trelloBoardDto.getLists()))
                 .build();
     }
 
@@ -22,38 +24,47 @@ public class TrelloMapper {
 
     }
 
+    public TrelloBoardDto mapToBoardDto(final TrelloBoard trelloBoard) {
+        return TrelloBoardDto.builder()
+                .id(trelloBoard.getId())
+                .name(trelloBoard.getName())
+                .lists(mapToListDtos(trelloBoard.getLists()))
+                .build();
+    }
+
     public List<TrelloBoardDto> mapToBoardsDto(final List<TrelloBoard> trelloBoards) {
         return trelloBoards.stream()
-                .map(trelloBoard ->
-                        TrelloBoardDto.builder()
-                                .id(trelloBoard.getId())
-                                .name(trelloBoard.getName())
-                                .lists(mapToListDto(trelloBoard.getLists()))
-                                .build()
-                )
+                .map(this::mapToBoardDto)
                 .collect(Collectors.toList());
 
     }
 
-    public List<TrelloList> mapToList(final List<TrelloListDto> trelloListDto) {
+    public List<TrelloList> mapToLists(final List<TrelloListDto> trelloListDto) {
         return trelloListDto.stream()
-                .map(trelloList -> TrelloList.builder()
-                        .id(trelloList.getId())
-                        .name(trelloList.getName())
-                        .isClosed(trelloList.isClosed())
-                        .build()
-                )
+                .map(this::mapToList)
                 .collect(Collectors.toList());
     }
 
-    public List<TrelloListDto> mapToListDto(final List<TrelloList> trelloLists) {
+    public TrelloList mapToList(TrelloListDto trelloList) {
+        return TrelloList.builder()
+                .id(trelloList.getId())
+                .name(trelloList.getName())
+                .isClosed(trelloList.isClosed())
+                .build();
+    }
+
+    public List<TrelloListDto> mapToListDtos(final List<TrelloList> trelloLists) {
         return trelloLists.stream()
-                .map(trelloList -> TrelloListDto.builder()
-                        .id(trelloList.getId())
-                        .name(trelloList.getName())
-                        .isClosed(trelloList.isClosed())
-                        .build())
+                .map(this::mapToListDto)
                 .collect(Collectors.toList());
+    }
+
+    public TrelloListDto mapToListDto(TrelloList trelloList) {
+        return TrelloListDto.builder()
+                .id(trelloList.getId())
+                .name(trelloList.getName())
+                .isClosed(trelloList.isClosed())
+                .build();
     }
 
     public TrelloCardDto mapToCardDto(final TrelloCard trelloCard) {

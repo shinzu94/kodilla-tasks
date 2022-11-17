@@ -3,12 +3,12 @@ package com.crud.tasks.domain;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Value;
 
 import java.util.List;
 
+@Value
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class TrelloBoard {
