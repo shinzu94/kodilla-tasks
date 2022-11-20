@@ -37,6 +37,7 @@ class TrelloClientTest {
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
         when(trelloConfig.getTrelloToken()).thenReturn("test");
     }
+
     @Test
     public void shouldFetchTrelloBoards() throws URISyntaxException {
         // Given

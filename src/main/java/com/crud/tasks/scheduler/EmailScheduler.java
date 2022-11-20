@@ -17,6 +17,14 @@ public class EmailScheduler {
     private final TaskRepository taskRepository;
     private final AdminConfig adminConfig;
 
+    private static String getMessage(long size) {
+        return new StringBuffer()
+                .append("Currently in database you got: ")
+                .append(size)
+                .append(size == 1 ? "task" : "tasks")
+                .toString();
+    }
+
     @Scheduled(cron = "0 0 10 * * *")
     public void sendInformationEmail() {
         simpleEmailService.send(
@@ -27,13 +35,5 @@ public class EmailScheduler {
                         null
                 )
         );
-    }
-
-    private static String getMessage(long size) {
-        return new StringBuffer()
-                .append("Currently in database you got: ")
-                .append(size)
-                .append(size == 1 ? "task": "tasks")
-                .toString();
     }
 }

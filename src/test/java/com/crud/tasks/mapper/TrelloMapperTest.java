@@ -9,10 +9,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
 public class TrelloMapperTest {
-    @Autowired
-    private TrelloMapper trelloMapper;
+    private TrelloMapper trelloMapper = new TrelloMapper();
 
 
     @Test
