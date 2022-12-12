@@ -10,19 +10,19 @@ import java.util.List;
 public class TaskMapper {
 
     public Task mapToTask(final TaskDto taskDto) {
-        return new Task(
-                taskDto.getId(),
-                taskDto.getTitle(),
-                taskDto.getContent()
-        );
+        return Task.builder()
+                .id(taskDto.getId())
+                .title(taskDto.getTitle())
+                .content(taskDto.getContent())
+                .build();
     }
 
     public TaskDto mapToTaskDto(final Task task) {
-        return new TaskDto(
-                task.getId(),
-                task.getTitle(),
-                task.getContent()
-        );
+        return TaskDto.builder()
+                .id(task.getId())
+                .title(task.getTitle())
+                .content(task.getContent())
+                .build();
     }
 
     public List<TaskDto> mapToTaskDtoList(final List<Task> taskList) {
