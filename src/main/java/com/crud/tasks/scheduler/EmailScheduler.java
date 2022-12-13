@@ -13,15 +13,18 @@ import org.springframework.stereotype.Component;
 public class EmailScheduler {
 
     private static final String SUBJECT = "Tasks: Once a day email";
+
     private final SimpleEmailService simpleEmailService;
+
     private final TaskRepository taskRepository;
+
     private final AdminConfig adminConfig;
 
     private static String getMessage(long size) {
-        return new StringBuffer()
+        return new StringBuilder()
                 .append("Currently in database you got: ")
                 .append(size)
-                .append(size == 1 ? "task" : "tasks")
+                .append(size == 1 ? " task" : " tasks")
                 .toString();
     }
 

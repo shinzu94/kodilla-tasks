@@ -1,9 +1,6 @@
 package com.crud.tasks.facade;
 
-import com.crud.tasks.domain.TrelloBoard;
-import com.crud.tasks.domain.TrelloBoardDto;
-import com.crud.tasks.domain.TrelloList;
-import com.crud.tasks.domain.TrelloListDto;
+import com.crud.tasks.domain.*;
 import com.crud.tasks.mapper.TrelloMapper;
 import com.crud.tasks.service.TrelloService;
 import com.crud.tasks.validator.TrelloValidator;
@@ -12,26 +9,27 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
 public class TrelloFacadeTest {
+
     @InjectMocks
     private TrelloFacade trelloFacade;
-//
-//    @Mock
-//    private TrelloService trelloService;
-//
-//    @Mock
-//    private TrelloValidator trelloValidator;
-//
-//    @Mock
-//    private TrelloMapper trelloMapper;
+
+    @Mock
+    private TrelloService trelloService;
+
+    @Mock
+    private TrelloValidator trelloValidator;
+
+    @Mock
+    private TrelloMapper trelloMapper;
 
     @Test
     void shouldFetchEmptyList() {
@@ -55,5 +53,36 @@ public class TrelloFacadeTest {
         // Then
         assertThat(trelloBoardDtos).isNotNull();
         assertThat(trelloBoardDtos.size()).isEqualTo(0);
+    }
+
+    @Test
+    void createTrelloCardShouldCreateCard() {
+        // Given
+        TrelloCardDto cardDto = TrelloCardDto.builder()
+                .name("te")
+                .description("tes")
+                .listId("mo")
+                .pos("TOP")
+                .build();
+        TrelloCard card = TrelloCard.builder()
+                .name("te")
+                .description("tes")
+                .listId("mo")
+                .pos("TOP")
+                .build();
+        CreatedTrelloCardDto expectedCreatedTrelloCardDto = CreatedTrelloCardDto.builder()
+                .id("te")
+                .name("te")
+                .build();
+        when(trelloMapper.mapToCard(cardDto)).thenReturn(card);
+        when(trelloService.createTrelloCard(cardDto)).thenReturn(expectedCreatedTrelloCardDto);
+
+        // When
+        CreatedTrelloCardDto createdTrelloCardDto = trelloFacade.createCard(cardDto);
+
+        // Then
+        assertEquals(expectedCreatedTrelloCardDto, createdTrelloCardDto);
+        verify(trelloValidator, times(1)).validateCard(card);
+        verify(trelloService, times(1)).createTrelloCard(cardDto);
     }
 }

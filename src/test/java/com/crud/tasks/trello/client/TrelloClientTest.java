@@ -30,9 +30,8 @@ class TrelloClientTest {
     @Mock
     private TrelloConfig trelloConfig;
 
-
     @BeforeEach
-    private void beforeEach() {
+    public void beforeEach() {
         when(trelloConfig.getTrelloApiEndpoint()).thenReturn("http://test.com");
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
         when(trelloConfig.getTrelloToken()).thenReturn("test");
@@ -74,7 +73,12 @@ class TrelloClientTest {
                 "1",
                 "test task",
                 "http://test.com",
-                new TrelloBadgesDto(0, new TrelloAttachmentsByTypeDto())
+                new TrelloBadgesDto(0, TrelloAttachmentsByTypeDto.builder()
+                        .trello(TrelloDto.builder()
+                                .card(0)
+                                .board(0)
+                                .build())
+                        .build())
         );
 
         when(restTemplate.postForObject(uri, null, CreatedTrelloCardDto.class)).thenReturn(createdTrelloCardDto);
