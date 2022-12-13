@@ -47,11 +47,10 @@ test {
     finalizedBy jacocoTestReport
     finalizedBy jacocoTestCoverageVerification
 }
+
 //bootWar {
 //    archiveName 'crud.war'
 //}
-
-apply plugin: "jacoco"
 
 jacoco {
     toolVersion = "0.8.8"
