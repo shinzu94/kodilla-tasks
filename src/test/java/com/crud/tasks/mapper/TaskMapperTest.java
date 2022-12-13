@@ -3,17 +3,14 @@ package com.crud.tasks.mapper;
 import com.crud.tasks.domain.Task;
 import com.crud.tasks.domain.TaskDto;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
 public class TaskMapperTest {
-    @Autowired
-    private TaskMapper taskMapper;
+
+    private final TaskMapper taskMapper = new TaskMapper();
 
     @Test
     void testTrelloTaskDtoToTask() {

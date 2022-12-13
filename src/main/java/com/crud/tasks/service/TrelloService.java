@@ -15,8 +15,11 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class TrelloService {
+
     private final TrelloClient trelloClient;
+
     private final SimpleEmailService emailService;
+
     private final AdminConfig adminConfig;
 
     public List<TrelloBoardDto> fetchTrelloBoards() {
@@ -26,12 +29,12 @@ public class TrelloService {
     public CreatedTrelloCardDto createTrelloCard(final TrelloCardDto trelloCardDto) {
         CreatedTrelloCardDto newCard = trelloClient.createNewCard(trelloCardDto);
         Optional.ofNullable(newCard).ifPresent(card -> emailService.send(
-                new Mail(
-                        adminConfig.getAdminMail(),
-                        "New card",
-                        "New card: " + trelloCardDto.getName() + " has been created on your Trello account",
-                        null
-                )));
+                Mail.builder()
+                        .receiverEmail(adminConfig.getAdminMail())
+                        .subject("New card")
+                        .message("New card: " + trelloCardDto.getName() + " has been created on your Trello account")
+                        .build()
+        ));
         return newCard;
     }
 }

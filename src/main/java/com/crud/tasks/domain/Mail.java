@@ -1,22 +1,22 @@
 package com.crud.tasks.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Value;
 
 import java.util.Optional;
 
-@Getter
+@Value
+@AllArgsConstructor
+@Builder
 public class Mail {
-    private final String receiverEmail;
-    private final String subject;
-    private final String message;
-    private Optional<String> toCc;
 
-    @Builder
-    public Mail(String receiverEmail, String subject, String message, Optional<String> toCc) {
-        this.receiverEmail = receiverEmail;
-        this.subject = subject;
-        this.message = message;
-        this.toCc = toCc != null ? toCc : Optional.empty();
-    }
+    private String receiverEmail;
+
+    private String subject;
+
+    private String message;
+
+    @Builder.Default
+    private Optional<String> toCc = Optional.empty();
 }
