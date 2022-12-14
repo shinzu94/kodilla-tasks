@@ -1,3 +1,8 @@
 spring:
+  mail:
+    host: localhost
+    port: 1025
+    username: cos@cos.pl
+    password: cos@cos.pl
   datasource:
     url: "jdbc:mysql://127.0.0.1:3306/task_crud?serverTimezone=Europe/Warsaw&useSSL=false&allowPublicKeyRetrieval=true"

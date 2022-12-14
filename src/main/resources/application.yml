@@ -39,3 +39,26 @@ trello:
 
 admin:
   mail: oskar.sek94@gmail.com
+
+management:
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    defaults:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: Tasks Application
+    description: Application has been created on Kodilla course!
+    version: 1.0.0
