@@ -62,3 +62,16 @@ info:
     name: Tasks Application
     description: Application has been created on Kodilla course!
     version: 1.0.0
+    owner:
+      name: Johon
+      surname: Doe
+    administrator:
+      email: john.doe@test.com
+      address:
+        street: Super Cool Street
+        number: 42
+  company:
+    name: TaskCrudAppCreator
+    goal: Our goal is to make the world a better place!
+    email: task@crud.com
+    phone: 744489230
