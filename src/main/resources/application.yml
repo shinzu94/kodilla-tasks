@@ -39,6 +39,7 @@ trello:
 
 admin:
   mail: oskar.sek94@gmail.com
+  name: Oskar Sęk
 
 management:
   endpoint:
