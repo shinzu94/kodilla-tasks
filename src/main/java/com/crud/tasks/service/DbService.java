@@ -22,8 +22,9 @@ public class DbService {
     }
 
     public void validTaskExist(Long taskId) throws TaskNotFoundException {
-        if (!repository.existsById(taskId))
+        if (!repository.existsById(taskId)) {
             throw new TaskNotFoundException();
+        }
     }
 
     public Task saveTask(final Task task) {
